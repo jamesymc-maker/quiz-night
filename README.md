@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quiz Night
 
-## Getting Started
+A self-hosted family quiz game for the shared screen. Build rounds, generate questions with ChatGPT, review them, then run the quiz pub-quiz style with live scoring.
 
-First, run the development server:
+## Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Install dependencies**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Create a Supabase project** and run the SQL in [`supabase/schema.sql`](supabase/schema.sql) in the Supabase SQL editor.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Configure environment variables** (copy `.env.local.example` to `.env.local`):
 
-## Learn More
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   SUPABASE_SERVICE_ROLE_KEY=...
+   OPENAI_API_KEY=...
+   OPENAI_MODEL=gpt-4o
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+   Get an OpenAI API key at [platform.openai.com/api-keys](https://platform.openai.com/api-keys).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Run locally**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+   Open [http://localhost:3000](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy to Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Add the same environment variables in your Vercel project settings. Deploy as a standard Next.js app.
+
+## Routes
+
+| Route | Purpose |
+|-------|---------|
+| `/` | List quizzes, create new |
+| `/build/[quizId]` | Quiz builder |
+| `/play/[quizId]` | Game runner |
+| `/play/[quizId]/scoreboard` | Final results |
+| `/design` | Static design preview |
